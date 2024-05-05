@@ -2,6 +2,7 @@
        margin: 0;
        padding-bottom: 3rem;
        font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+       padding-left: 30px;
    }
 
    #form {
@@ -51,4 +52,10 @@
 
    #messages>li:nth-child(odd) {
        background: #efefef;
+   }
+
+   .room {
+       font-size: 25px;
+       padding: 3px;
+       color: coral;
    }

@@ -46,9 +46,15 @@ type resultType = {
     client_offset: string,
     content: string
 }
-
+let roomNo = 1
+let clients = 0
 io.on('connection', async (socket) => {
+    clients++
     console.log('a user is connected');
+    io.sockets.emit('broadcast', { description: clients + ' clients connected' });
+
+    socket.join('room-' + roomNo);
+    io.sockets.in('room-' + roomNo).emit('connectToRoom', "you are in room no. " + roomNo)
     socket.on('chat message', async (msg) => {
         let result: resultType;
         try {
@@ -74,6 +80,11 @@ io.on('connection', async (socket) => {
             console.log(e)
         }
     }
+    socket.on('disconnect', () => {
+        clients--;
+        io.sockets.emit('broadcast', { description: clients + ' clients connected' })
+        console.log('user disconnect')
+    })
 });
 
 pool.on("error", (err) => {
